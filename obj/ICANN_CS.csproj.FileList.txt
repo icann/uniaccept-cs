@@ -1,0 +1,8 @@
+bin\Debug\ICANN_CS.exe
+bin\Debug\ICANN_CS.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\ICANN_CS.exe
+obj\Debug\ICANN_CS.pdb
+bin\Debug\Interop.Shell32.dll
+obj\Debug\Interop.Shell32.dll
+obj\Debug\ICANN_CS.csproj.ResolveComReference.cache

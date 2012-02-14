@@ -1,0 +1,71 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8E494151-AFAB-47DA-B57A-7FAC9B7D81C6}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ICANN_CS</RootNamespace>
+    <AssemblyName>ICANN_CS</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="src\org\icann\tld\util\FindDNSServers.cs" />
+    <Compile Include="src\org\icann\tld\util\Lookup.cs" />
+    <Compile Include="Start.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\org\icann\tld\Main.cs" />
+    <Compile Include="src\org\icann\tld\TldCache.cs" />
+    <Compile Include="src\org\icann\tld\TldVerify.cs" />
+    <Compile Include="src\org\icann\tld\TldVerifyException.cs" />
+    <Compile Include="src\org\icann\tld\util\Assert.cs" />
+    <Compile Include="src\org\icann\tld\util\DomainNameUtil.cs" />
+    <Compile Include="src\org\icann\tld\util\FileBasedMD5Generator.cs" />
+    <Compile Include="src\org\icann\tld\util\VersionParser.cs" />
+    <Compile Include="test\src\org\icann\tld\TldVerifyTest.cs" />
+    <Compile Include="test\src\org\icann\tld\util\DomainNameUtilTest.cs" />
+    <Compile Include="test\src\org\icann\tld\util\VersionParserTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\org\icann\tld\Notes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Shell32">
+      <Guid>{50A7E9B0-70EF-11D1-B75A-00A0C90564FE}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

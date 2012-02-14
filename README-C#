@@ -1,0 +1,50 @@
+The following code performs TLD (Top Level Domain) lookups in two ways:
+
+++++++++++++++++++++++++++++++++  
+
+>From DNS Servers:			
+
+The first way directly queries a local DNS server for the domain's existence. If found it returns boolean True, if not it returns False.
+
+This utilizes the Lookup class which has several constructors. These can take the TLD value, the lookup method -- either UDP or TCP, and the lookup type. Defaults are the UDP method and the SOA type.  While the Lookup class is optimized for TLD lookups, parameters within it can be altered (through code) for other lookup configurations from DNS servers.  
+
+The addresses of the local DNS servers are obtained first by looking in the local machine's registry, and then by querying the network adapter(s) if no values are found there.
+
+A DNS query will time out after approximately 6 seconds. If more than one DNS server address exists it will loop through the list trying to obtain a response. 
+
+++++++++++++++++++++++++++++++++
+
+>From Cache: 
+
+The second way verifies the TLD directly from a list published by ICANN. If the TLD is found it returns boolean True, if not it returns False. The list is downloaded and saved into memory cache which is used for subsequent lookups while the program runs. When the program terminates cache is destroyed. This is the process: 
+
+If cache is present:
+A lookup is done against it for the TLD.
+
+If cache is not present:  
+
+1) refreshTLD() is called. This downloads the entire TLD list from ICANN and saves it to a temp file. A check value is also downloaded from ICANN. If the list checks against the check value, the contents of the temp file are saved to cache and the cache contents are saved to the file "tlds-alpha-by-domain.txt" on the local machine. Then readTLD() is called.  
+
+2) readTLD(). This routine reads the contents of either the temp file or "tlds-alpha-by-domain.txt" and if cache exists checks to verify that cache contains the most current version. If not it refreshes cache with the contents of the file.
+
+3) A lookup for the TLD is then done against the cache.
+
+==================================================================================
+
+With the exception of the Lookup Class, the C# code was converted from Java. Below are the conversion notes:
+
+1) Whenever possible exception types have been kept same. If C# didn't have a comparable exception type the least general exception was chosen for a replacement.
+
+2) In 'TldVerify.refreshTldDB()' 'tempFile' is deleted immediately after last use rather than when the class goes to garbage collection. This could have been put in a destructor for the class but this adds another pass for no apparent gain. 
+
+3) 'DomainNameUtil.getTopLevelDomain()' strips a trailing '.' from the domain string before the string is split. This prevents an empty TLD from being returned. Original Java doesn't appear to do this.
+
+4) 'TldCache.equals(Object o)' and 'TldCache.hashcode()' were not converted as they have no apparent use in the C# code.
+
+5) 'Assert' class has been added for the test features.
+
+6) The test classes in Java inherited from 'TestCase' class. Since the .java source code is not available this has been omitted in C#.
+
+
+
+-Don Meyer, 1/29/2007.
